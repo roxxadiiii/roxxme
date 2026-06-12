@@ -1,25 +1,39 @@
 /* animations.css - 20+ Hover Animations */
-.glass-card {
+.glass-card,
+.twitter-card,
+.joke-card {
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease;
 }
 
 /* 1. Scale Up */
-.anim-scale-up .glass-card:hover { transform: translateY(-5px) scale(1.05); }
+.anim-scale-up .glass-card:hover,
+.anim-scale-up .twitter-card:hover,
+.anim-scale-up .joke-card:hover { transform: translateY(-5px) scale(1.05); }
 
 /* 2. Scale Down */
-.anim-scale-down .glass-card:hover { transform: translateY(-5px) scale(0.95); }
+.anim-scale-down .glass-card:hover,
+.anim-scale-down .twitter-card:hover,
+.anim-scale-down .joke-card:hover { transform: translateY(-5px) scale(0.95); }
 
 /* 3. Float */
-.anim-float .glass-card:hover { transform: translateY(-15px); box-shadow: 0 25px 40px rgba(0,0,0,0.3); }
+.anim-float .glass-card:hover,
+.anim-float .twitter-card:hover,
+.anim-float .joke-card:hover { transform: translateY(-15px); box-shadow: 0 25px 40px rgba(0,0,0,0.3); }
 
 /* 4. Sink */
-.anim-sink .glass-card:hover { transform: translateY(10px); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.anim-sink .glass-card:hover,
+.anim-sink .twitter-card:hover,
+.anim-sink .joke-card:hover { transform: translateY(10px); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
 /* 5. Tilt Left */
-.anim-tilt-left .glass-card:hover { transform: translateY(-5px) rotate(-3deg); }
+.anim-tilt-left .glass-card:hover,
+.anim-tilt-left .twitter-card:hover,
+.anim-tilt-left .joke-card:hover { transform: translateY(-5px) rotate(-3deg); }
 
 /* 6. Tilt Right */
-.anim-tilt-right .glass-card:hover { transform: translateY(-5px) rotate(3deg); }
+.anim-tilt-right .glass-card:hover,
+.anim-tilt-right .twitter-card:hover,
+.anim-tilt-right .joke-card:hover { transform: translateY(-5px) rotate(3deg); }
 
 /* 7. Wiggle */
 @keyframes wiggle { 
@@ -29,7 +43,9 @@
   75% { transform: rotate(-5deg); } 
   100% { transform: rotate(0); } 
 }
-.anim-wiggle .glass-card:hover { animation: wiggle 0.4s ease-in-out; }
+.anim-wiggle .glass-card:hover,
+.anim-wiggle .twitter-card:hover,
+.anim-wiggle .joke-card:hover { animation: wiggle 0.4s ease-in-out; }
 
 /* 8. Pulse */
 @keyframes pulse { 
@@ -37,34 +53,46 @@
   50% { transform: scale(1.05); } 
   100% { transform: scale(1); } 
 }
-.anim-pulse .glass-card:hover { animation: pulse 0.6s infinite; }
+.anim-pulse .glass-card:hover,
+.anim-pulse .twitter-card:hover,
+.anim-pulse .joke-card:hover { animation: pulse 0.6s infinite; }
 
 /* 9. Glow */
-.anim-glow .glass-card:hover { 
+.anim-glow .glass-card:hover,
+.anim-glow .twitter-card:hover,
+.anim-glow .joke-card:hover { 
   box-shadow: 0 0 30px var(--blob-1); 
   border-color: var(--blob-1); 
   transform: translateY(-5px); 
 }
 
 /* 10. Shadow Pop */
-.anim-shadow-pop .glass-card:hover { 
+.anim-shadow-pop .glass-card:hover,
+.anim-shadow-pop .twitter-card:hover,
+.anim-shadow-pop .joke-card:hover { 
   box-shadow: 10px 10px 0px var(--blob-2); 
   transform: translate(-5px, -5px); 
   border-color: var(--blob-2);
 }
 
 /* 11. Border Glow */
-.anim-border-glow .glass-card:hover { 
+.anim-border-glow .glass-card:hover,
+.anim-border-glow .twitter-card:hover,
+.anim-border-glow .joke-card:hover { 
   border: 2px solid var(--blob-3); 
   box-shadow: inset 0 0 20px rgba(255,255,255,0.2); 
   transform: translateY(-5px); 
 }
 
 /* 12. Flip X */
-.anim-flip-x .glass-card:hover { transform: rotateX(15deg) scale(1.05); }
+.anim-flip-x .glass-card:hover,
+.anim-flip-x .twitter-card:hover,
+.anim-flip-x .joke-card:hover { transform: rotateX(15deg) scale(1.05); }
 
 /* 13. Flip Y */
-.anim-flip-y .glass-card:hover { transform: rotateY(15deg) scale(1.05); }
+.anim-flip-y .glass-card:hover,
+.anim-flip-y .twitter-card:hover,
+.anim-flip-y .joke-card:hover { transform: rotateY(15deg) scale(1.05); }
 
 /* 14. Jelly */
 @keyframes jelly { 
@@ -73,7 +101,9 @@
   50% { transform: scale(0.95, 1.05); } 
   75% { transform: scale(1.02, 0.98); } 
 }
-.anim-jelly .glass-card:hover { animation: jelly 0.6s ease-in-out; }
+.anim-jelly .glass-card:hover,
+.anim-jelly .twitter-card:hover,
+.anim-jelly .joke-card:hover { animation: jelly 0.6s ease-in-out; }
 
 /* 15. Shake */
 @keyframes shake { 
@@ -82,33 +112,45 @@
   50% { transform: translateX(5px); } 
   75% { transform: translateX(-5px); } 
 }
-.anim-shake .glass-card:hover { animation: shake 0.3s ease-in-out; }
+.anim-shake .glass-card:hover,
+.anim-shake .twitter-card:hover,
+.anim-shake .joke-card:hover { animation: shake 0.3s ease-in-out; }
 
 /* 16. Bounce */
 @keyframes bounce { 
   0%, 100% { transform: translateY(-5px); } 
   50% { transform: translateY(-15px); } 
 }
-.anim-bounce .glass-card:hover { animation: bounce 0.6s infinite; }
+.anim-bounce .glass-card:hover,
+.anim-bounce .twitter-card:hover,
+.anim-bounce .joke-card:hover { animation: bounce 0.6s infinite; }
 
 /* 17. Spin Slight */
-.anim-spin-slight .glass-card:hover { transform: rotate(10deg) scale(1.02); }
+.anim-spin-slight .glass-card:hover,
+.anim-spin-slight .twitter-card:hover,
+.anim-spin-slight .joke-card:hover { transform: rotate(10deg) scale(1.02); }
 
 /* 18. Blur Out */
-.anim-blur-out .glass-card:hover { 
+.anim-blur-out .glass-card:hover,
+.anim-blur-out .twitter-card:hover,
+.anim-blur-out .joke-card:hover { 
   filter: blur(4px); 
   transform: scale(0.98); 
   background: var(--glass-hover); 
 }
 
 /* 19. Push 3D */
-.anim-push-3d .glass-card:hover { 
+.anim-push-3d .glass-card:hover,
+.anim-push-3d .twitter-card:hover,
+.anim-push-3d .joke-card:hover { 
   transform: perspective(500px) translateZ(40px) translateY(-5px); 
   box-shadow: 0 25px 40px rgba(0,0,0,0.5); 
 }
 
 /* 20. Slide Up */
-.anim-slide-up .glass-card:hover { transform: translateY(-20px); opacity: 0.9; }
+.anim-slide-up .glass-card:hover,
+.anim-slide-up .twitter-card:hover,
+.anim-slide-up .joke-card:hover { transform: translateY(-20px); opacity: 0.9; }
 
 /* 21. Neon Glitch */
 @keyframes glitch {
@@ -119,7 +161,9 @@
   80% { transform: translate(2px, -2px) }
   100% { transform: translate(0) }
 }
-.anim-neon-glitch .glass-card:hover {
+.anim-neon-glitch .glass-card:hover,
+.anim-neon-glitch .twitter-card:hover,
+.anim-neon-glitch .joke-card:hover {
   animation: glitch 0.2s infinite;
   box-shadow: 0 0 10px var(--blob-1), -5px 0 20px var(--blob-2), 5px 0 20px var(--blob-3);
 }

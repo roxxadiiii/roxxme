@@ -90,6 +90,11 @@ const linksData = [
   {
     type: "joke",
     size: "size-2x2"
+  },
+  {
+    type: "twitter",
+    size: "size-1x2",
+    username: "roxxadiiii"
   }
 ];
 
@@ -111,6 +116,33 @@ function renderBentoGrid() {
   const container = document.getElementById('bento-grid');
 
   linksData.forEach(link => {
+    // ── Twitter / X profile card branch ──────────────────
+    if (link.type === 'twitter') {
+      const card = document.createElement('a');
+      card.className = `twitter-card ${link.size}`;
+      card.href = `https://x.com/${link.username}`;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+      card.innerHTML = `
+        <div class="twitter-card-header">
+          <div class="twitter-header-left">
+            <i class="ti ti-brand-x twitter-icon"></i>
+            <span class="twitter-label">Find me on X</span>
+          </div>
+          <span class="twitter-profile-link">
+            @${link.username} <i class="ti ti-external-link"></i>
+          </span>
+        </div>
+        <div class="twitter-body">
+          <i class="ti ti-brand-x twitter-big-icon"></i>
+          <p class="twitter-cta">Thoughts on AI, Linux&nbsp;&amp;&nbsp;tech.</p>
+          <span class="twitter-btn">Follow @${link.username}</span>
+        </div>
+      `;
+      container.appendChild(card);
+      return;
+    }
+
     // ── Joke card branch ──────────────────────────────────
     if (link.type === 'joke') {
       const card = document.createElement('div');
