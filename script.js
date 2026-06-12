@@ -86,25 +86,80 @@ const linksData = [
     url: "#",
     size: "size-1x1",
     color: "#0088cc"
+  },
+  {
+    type: "joke",
+    size: "size-2x2"
   }
+];
+
+// Curated fallback jokes if API is unavailable
+const fallbackJokes = [
+  { setup: "Why do programmers prefer dark mode?", delivery: "Because light attracts bugs!" },
+  { setup: "How many programmers does it take to change a light bulb?", delivery: "None — that's a hardware problem." },
+  { setup: "Why do Java developers wear glasses?", delivery: "Because they don't C#." },
+  { single: "A SQL query walks into a bar, walks up to two tables and asks... 'Can I join you?'" },
+  { setup: "What's a programmer's favourite hangout place?", delivery: "Foo Bar." },
+  { single: "There are 10 types of people in the world: those who understand binary and those who don't." },
+  { setup: "Why do programmers always mix up Christmas and Halloween?", delivery: "Because Oct 31 == Dec 25." },
+  { single: "Debugging: Being the detective in a crime movie where you are also the murderer." },
+  { setup: "What did the Java code say to the C code?", delivery: "You've got no class." },
+  { single: "It's not a bug, it's an undocumented feature." }
 ];
 
 function renderBentoGrid() {
   const container = document.getElementById('bento-grid');
-  
+
   linksData.forEach(link => {
+    // ── Joke card branch ──────────────────────────────────
+    if (link.type === 'joke') {
+      const card = document.createElement('div');
+      card.className = `joke-card ${link.size}`;
+      card.id = 'joke-card';
+      card.innerHTML = `
+        <div class="joke-header-row">
+          <div class="joke-header-left">
+            <i class="ti ti-mood-wink joke-icon"></i>
+            <span class="joke-label">Dev Joke</span>
+          </div>
+          <button class="refresh-joke-btn" id="refresh-joke-btn" title="Get another joke" aria-label="Refresh joke">
+            <i class="ti ti-refresh"></i>
+          </button>
+        </div>
+        <div class="joke-body" id="joke-body">
+          <div class="joke-skeleton">
+            <div class="skeleton-line long"></div>
+            <div class="skeleton-line medium"></div>
+            <div class="skeleton-line short"></div>
+          </div>
+        </div>
+        <div class="joke-footer">
+          <i class="ti ti-api"></i>
+          <span>jokeapi.dev • safe mode</span>
+        </div>
+      `;
+      container.appendChild(card);
+
+      // Fetch on render
+      fetchProgrammingJoke();
+
+      document.getElementById('refresh-joke-btn').addEventListener('click', () => {
+        fetchProgrammingJoke();
+      });
+      return;
+    }
+
+    // ── Standard link card branch ─────────────────────────
     const card = document.createElement('a');
     card.href = link.url;
     card.className = `glass-card ${link.size}`;
     card.target = "_blank";
     card.rel = "noopener noreferrer";
-    
-    // Custom gradient style for icons based on the provided base color
-    const iconStyle = link.color 
-      ? `background: -webkit-linear-gradient(45deg, ${link.color}, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;` 
+
+    const iconStyle = link.color
+      ? `background: -webkit-linear-gradient(45deg, ${link.color}, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;`
       : '';
 
-    // Specialized HTML structure for horizontal 2x1 cards to flex items nicely
     if (link.size === 'size-2x1') {
       card.innerHTML = `
         <div class="glass-card-inner">
@@ -116,7 +171,6 @@ function renderBentoGrid() {
         </div>
       `;
     } else {
-      // Default structure for 1x1, 1x2, and 2x2
       card.innerHTML = `
         <i class="ti ${link.icon} card-icon" style="${iconStyle}"></i>
         <div>
@@ -125,9 +179,54 @@ function renderBentoGrid() {
         </div>
       `;
     }
-    
+
     container.appendChild(card);
   });
+}
+
+async function fetchProgrammingJoke() {
+  const body    = document.getElementById('joke-body');
+  const btn     = document.getElementById('refresh-joke-btn');
+  if (!body) return;
+
+  // Loading state
+  btn.classList.add('spinning');
+  body.innerHTML = `
+    <div class="joke-skeleton">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line medium"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  `;
+
+  // Remove spin class after animation ends so it can retrigger
+  btn.addEventListener('animationend', () => btn.classList.remove('spinning'), { once: true });
+
+  try {
+    const res  = await fetch('https://v2.jokeapi.dev/joke/Programming?safe-mode&blacklistFlags=nsfw,racist,sexist');
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+
+    if (data.type === 'twopart') {
+      body.innerHTML = `
+        <p class="joke-setup">${data.setup}</p>
+        <p class="joke-punchline">👾 ${data.delivery}</p>
+      `;
+    } else {
+      body.innerHTML = `<p class="joke-single">${data.joke}</p>`;
+    }
+  } catch (_) {
+    // Graceful fallback to local curated joke
+    const pick = fallbackJokes[Math.floor(Math.random() * fallbackJokes.length)];
+    if (pick.single) {
+      body.innerHTML = `<p class="joke-single">${pick.single}</p>`;
+    } else {
+      body.innerHTML = `
+        <p class="joke-setup">${pick.setup}</p>
+        <p class="joke-punchline">👾 ${pick.delivery}</p>
+      `;
+    }
+  }
 }
 
 const themesList = [
