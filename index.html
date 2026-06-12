@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roxx | Linktree</title>
+  <meta name="description" content="Personal links and portfolio for Roxx">
+  <link rel="stylesheet" href="animations.css">
+  <link id="theme-stylesheet" rel="stylesheet" href="themes/dracula.css">
+  <link rel="stylesheet" href="style.css">
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+  <!-- Google Fonts: Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Animated Background Blobs for Glassmorphism Context -->
+  <div class="blob-cont">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Dynamic Island Branding -->
+  <div class="dynamic-island">
+    <i class="ti ti-terminal-2"></i>
+    <span>roxx<span class="accent-text">me</span></span>
+  </div>
+
+  <!-- Floating Settings Pill -->
+  <div class="floating-settings" id="settings-pill">
+    <button id="settings-toggle" class="settings-toggle-btn" aria-label="Toggle Settings">
+      <i class="ti ti-settings"></i>
+    </button>
+    <div class="settings-content">
+      <div class="setting-group">
+        <label for="theme-select"><i class="ti ti-palette"></i> Theme:</label>
+        <select id="theme-select" class="glass-select"></select>
+      </div>
+      <div class="setting-group">
+        <label for="anim-select"><i class="ti ti-wand"></i> Animation:</label>
+        <select id="anim-select" class="glass-select"></select>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+
+    <header class="profile-header">
+      <div class="avatar-glass">
+        <!-- Minimal Avatar -->
+        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Roxx&backgroundColor=transparent" alt="Roxx Avatar">
+      </div>
+      <div class="profile-info">
+        <h1>Roxx</h1>
+        <p>@roxx.dev</p>
+        <p class="bio">M.Sc. AI • open-source nerd • building things in the terminal</p>
+      </div>
+    </header>
+
+    <div class="bento-grid" id="bento-grid">
+      <!-- Cards will be injected dynamically by script.js -->
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

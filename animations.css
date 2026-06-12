@@ -1,0 +1,125 @@
+/* animations.css - 20+ Hover Animations */
+.glass-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease;
+}
+
+/* 1. Scale Up */
+.anim-scale-up .glass-card:hover { transform: translateY(-5px) scale(1.05); }
+
+/* 2. Scale Down */
+.anim-scale-down .glass-card:hover { transform: translateY(-5px) scale(0.95); }
+
+/* 3. Float */
+.anim-float .glass-card:hover { transform: translateY(-15px); box-shadow: 0 25px 40px rgba(0,0,0,0.3); }
+
+/* 4. Sink */
+.anim-sink .glass-card:hover { transform: translateY(10px); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+/* 5. Tilt Left */
+.anim-tilt-left .glass-card:hover { transform: translateY(-5px) rotate(-3deg); }
+
+/* 6. Tilt Right */
+.anim-tilt-right .glass-card:hover { transform: translateY(-5px) rotate(3deg); }
+
+/* 7. Wiggle */
+@keyframes wiggle { 
+  0% { transform: rotate(0); } 
+  25% { transform: rotate(-5deg); } 
+  50% { transform: rotate(5deg); } 
+  75% { transform: rotate(-5deg); } 
+  100% { transform: rotate(0); } 
+}
+.anim-wiggle .glass-card:hover { animation: wiggle 0.4s ease-in-out; }
+
+/* 8. Pulse */
+@keyframes pulse { 
+  0% { transform: scale(1); } 
+  50% { transform: scale(1.05); } 
+  100% { transform: scale(1); } 
+}
+.anim-pulse .glass-card:hover { animation: pulse 0.6s infinite; }
+
+/* 9. Glow */
+.anim-glow .glass-card:hover { 
+  box-shadow: 0 0 30px var(--blob-1); 
+  border-color: var(--blob-1); 
+  transform: translateY(-5px); 
+}
+
+/* 10. Shadow Pop */
+.anim-shadow-pop .glass-card:hover { 
+  box-shadow: 10px 10px 0px var(--blob-2); 
+  transform: translate(-5px, -5px); 
+  border-color: var(--blob-2);
+}
+
+/* 11. Border Glow */
+.anim-border-glow .glass-card:hover { 
+  border: 2px solid var(--blob-3); 
+  box-shadow: inset 0 0 20px rgba(255,255,255,0.2); 
+  transform: translateY(-5px); 
+}
+
+/* 12. Flip X */
+.anim-flip-x .glass-card:hover { transform: rotateX(15deg) scale(1.05); }
+
+/* 13. Flip Y */
+.anim-flip-y .glass-card:hover { transform: rotateY(15deg) scale(1.05); }
+
+/* 14. Jelly */
+@keyframes jelly { 
+  0%, 100% { transform: scale(1, 1); } 
+  25% { transform: scale(1.05, 0.95); } 
+  50% { transform: scale(0.95, 1.05); } 
+  75% { transform: scale(1.02, 0.98); } 
+}
+.anim-jelly .glass-card:hover { animation: jelly 0.6s ease-in-out; }
+
+/* 15. Shake */
+@keyframes shake { 
+  0%, 100% { transform: translateX(0); } 
+  25% { transform: translateX(-5px); } 
+  50% { transform: translateX(5px); } 
+  75% { transform: translateX(-5px); } 
+}
+.anim-shake .glass-card:hover { animation: shake 0.3s ease-in-out; }
+
+/* 16. Bounce */
+@keyframes bounce { 
+  0%, 100% { transform: translateY(-5px); } 
+  50% { transform: translateY(-15px); } 
+}
+.anim-bounce .glass-card:hover { animation: bounce 0.6s infinite; }
+
+/* 17. Spin Slight */
+.anim-spin-slight .glass-card:hover { transform: rotate(10deg) scale(1.02); }
+
+/* 18. Blur Out */
+.anim-blur-out .glass-card:hover { 
+  filter: blur(4px); 
+  transform: scale(0.98); 
+  background: var(--glass-hover); 
+}
+
+/* 19. Push 3D */
+.anim-push-3d .glass-card:hover { 
+  transform: perspective(500px) translateZ(40px) translateY(-5px); 
+  box-shadow: 0 25px 40px rgba(0,0,0,0.5); 
+}
+
+/* 20. Slide Up */
+.anim-slide-up .glass-card:hover { transform: translateY(-20px); opacity: 0.9; }
+
+/* 21. Neon Glitch */
+@keyframes glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 2px) }
+  40% { transform: translate(-2px, -2px) }
+  60% { transform: translate(2px, 2px) }
+  80% { transform: translate(2px, -2px) }
+  100% { transform: translate(0) }
+}
+.anim-neon-glitch .glass-card:hover {
+  animation: glitch 0.2s infinite;
+  box-shadow: 0 0 10px var(--blob-1), -5px 0 20px var(--blob-2), 5px 0 20px var(--blob-3);
+}

@@ -1,0 +1,11 @@
+:root {
+  --bg-color: #1a1b2e;
+  --text-primary: #c0caf5;
+  --text-secondary: #c0caf5b3;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-hover: rgba(255, 255, 255, 0.12);
+  --blob-1: #7aa2f7;
+  --blob-2: #bb9af7;
+  --blob-3: #9ece6a;
+}

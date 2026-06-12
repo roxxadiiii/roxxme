@@ -1,0 +1,428 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --c-dracula-bg: #282a36;
+    --c-dracula-surface: #1e1f29;
+    --c-dracula-border: #bd93f9;
+    --c-dracula-accent: #ff79c6;
+    --c-dracula-text: #f8f8f2;
+    --c-dracula-muted: #6272a4;
+    --c-dracula-badge: #50fa7b;
+
+    --c-tokyo-bg: #1a1b2e;
+    --c-tokyo-surface: #16213e;
+    --c-tokyo-border: #7aa2f7;
+    --c-tokyo-accent: #bb9af7;
+    --c-tokyo-text: #c0caf5;
+    --c-tokyo-muted: #565f89;
+    --c-tokyo-badge: #9ece6a;
+
+    --c-cat-bg: #1e1e2e;
+    --c-cat-surface: #181825;
+    --c-cat-border: #cba6f7;
+    --c-cat-accent: #f38ba8;
+    --c-cat-text: #cdd6f4;
+    --c-cat-muted: #585b70;
+    --c-cat-badge: #a6e3a1;
+
+    --c-nord-bg: #2e3440;
+    --c-nord-surface: #242933;
+    --c-nord-border: #81a1c1;
+    --c-nord-accent: #88c0d0;
+    --c-nord-text: #eceff4;
+    --c-nord-muted: #4c566a;
+    --c-nord-badge: #a3be8c;
+
+    --c-gruvbox-bg: #282828;
+    --c-gruvbox-surface: #1d2021;
+    --c-gruvbox-border: #d79921;
+    --c-gruvbox-accent: #fe8019;
+    --c-gruvbox-text: #ebdbb2;
+    --c-gruvbox-muted: #665c54;
+    --c-gruvbox-badge: #b8bb26;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body, .root {
+    font-family: 'Inter', sans-serif;
+    background: transparent;
+  }
+
+  .page {
+    padding: 1.5rem 0.5rem 2rem;
+  }
+
+  .theme-switcher {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .theme-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid;
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    transition: transform 0.15s;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .theme-btn:hover { transform: scale(1.07); }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .poke-card {
+    border-radius: 16px;
+    border: 2px solid;
+    padding: 0;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .poke-card:hover {
+    transform: translateY(-4px) rotate(-0.5deg);
+  }
+
+  .card-header {
+    padding: 1.25rem 1.25rem 0.75rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .card-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2.5px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .card-name {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    font-family: 'Space Mono', monospace;
+    line-height: 1.2;
+  }
+
+  .card-handle {
+    font-size: 12px;
+    margin-top: 2px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .card-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .card-divider {
+    height: 1px;
+    margin: 0 1.25rem;
+    opacity: 0.3;
+  }
+
+  .card-bio {
+    padding: 0.75rem 1.25rem;
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  .card-links {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 0.75rem 1.25rem 1.25rem;
+  }
+
+  .link-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    border: 1.5px solid;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.12s;
+    background: transparent;
+  }
+  .link-btn:hover {
+    opacity: 0.8;
+    transform: translateX(3px);
+  }
+
+  .link-icon {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .link-label { flex: 1; }
+
+  .link-arrow {
+    font-size: 14px;
+    opacity: 0.5;
+  }
+
+  .hp-bar-wrap {
+    padding: 0 1.25rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hp-label {
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    opacity: 0.6;
+    width: 22px;
+    flex-shrink: 0;
+  }
+  .hp-track {
+    flex: 1;
+    height: 5px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.1);
+  }
+  .hp-fill {
+    height: 100%;
+    border-radius: 3px;
+  }
+  .hp-val {
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    opacity: 0.55;
+    width: 28px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .card-corner-shine {
+    position: absolute;
+    top: -18px;
+    right: -18px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+</style>
+
+<div class="page">
+  <div class="theme-switcher" id="switcher"></div>
+  <div class="card-grid" id="grid"></div>
+</div>
+
+<script>
+const themes = {
+  dracula: {
+    label: "Dracula",
+    bg: "#282a36", surface: "#1e1f29",
+    border: "#bd93f9", accent: "#ff79c6",
+    text: "#f8f8f2", muted: "#6272a4",
+    badge: "#50fa7b", badgeText: "#1a3a1a",
+    hpColor: "#ff79c6", btnBorder: "#6272a4",
+  },
+  tokyo: {
+    label: "Tokyo Night",
+    bg: "#1a1b2e", surface: "#16213e",
+    border: "#7aa2f7", accent: "#bb9af7",
+    text: "#c0caf5", muted: "#565f89",
+    badge: "#9ece6a", badgeText: "#1a2a0a",
+    hpColor: "#7aa2f7", btnBorder: "#565f89",
+  },
+  catppuccin: {
+    label: "Catppuccin",
+    bg: "#1e1e2e", surface: "#181825",
+    border: "#cba6f7", accent: "#f38ba8",
+    text: "#cdd6f4", muted: "#585b70",
+    badge: "#a6e3a1", badgeText: "#1a3a1a",
+    hpColor: "#cba6f7", btnBorder: "#585b70",
+  },
+  nord: {
+    label: "Nord",
+    bg: "#2e3440", surface: "#242933",
+    border: "#81a1c1", accent: "#88c0d0",
+    text: "#eceff4", muted: "#4c566a",
+    badge: "#a3be8c", badgeText: "#1a2a0a",
+    hpColor: "#88c0d0", btnBorder: "#4c566a",
+  },
+  gruvbox: {
+    label: "Gruvbox",
+    bg: "#282828", surface: "#1d2021",
+    border: "#d79921", accent: "#fe8019",
+    text: "#ebdbb2", muted: "#665c54",
+    badge: "#b8bb26", badgeText: "#1a1a00",
+    hpColor: "#d79921", btnBorder: "#665c54",
+  }
+};
+
+const cards = [
+  {
+    emoji: "⚡",
+    name: "Roxx",
+    handle: "@roxx.dev",
+    type: "ELECTRIC",
+    hp: 92,
+    bio: "M.Sc. AI • open-source nerd • building things in the terminal",
+    links: [
+      { icon: "ti-brand-github", label: "GitHub" },
+      { icon: "ti-brand-linkedin", label: "LinkedIn" },
+      { icon: "ti-notebook", label: "Blog / Notes" },
+      { icon: "ti-mail", label: "Contact" },
+    ]
+  },
+  {
+    emoji: "🌊",
+    name: "Portfolio",
+    handle: "projects & work",
+    type: "WATER",
+    hp: 78,
+    bio: "ML experiments, terminal tools, LaTeX wizardry, and side quests",
+    links: [
+      { icon: "ti-flask", label: "ML Projects" },
+      { icon: "ti-terminal", label: "Dotfiles" },
+      { icon: "ti-file-description", label: "CV / Resume" },
+    ]
+  },
+  {
+    emoji: "🔥",
+    name: "Writing",
+    handle: "words & notes",
+    type: "FIRE",
+    hp: 65,
+    bio: "Zettelkasten notes, blog posts, conference talks, and poetry vibes",
+    links: [
+      { icon: "ti-brand-medium", label: "Medium Articles" },
+      { icon: "ti-brain", label: "Knowledge Box" },
+      { icon: "ti-microphone", label: "Talks & Slides" },
+    ]
+  },
+  {
+    emoji: "🌿",
+    name: "Connect",
+    handle: "socials & DMs",
+    type: "GRASS",
+    hp: 88,
+    bio: "Let's talk AI, Linux, Urdu poetry, or anything worth discussing",
+    links: [
+      { icon: "ti-brand-twitter", label: "Twitter / X" },
+      { icon: "ti-brand-discord", label: "Discord" },
+      { icon: "ti-messages", label: "Telegram" },
+      { icon: "ti-rss", label: "RSS Feed" },
+    ]
+  }
+];
+
+const typeColors = {
+  ELECTRIC: "#f0c040",
+  WATER: "#6890f0",
+  FIRE: "#f08030",
+  GRASS: "#78c850",
+};
+
+let current = "dracula";
+
+function renderSwitcher() {
+  const sw = document.getElementById("switcher");
+  sw.innerHTML = "";
+  Object.entries(themes).forEach(([key, t]) => {
+    const btn = document.createElement("button");
+    btn.className = "theme-btn";
+    btn.textContent = t.label;
+    btn.style.cssText = `
+      background: ${current === key ? t.border : "transparent"};
+      color: ${current === key ? themes[current].bg : t.text};
+      border-color: ${t.border};
+    `;
+    btn.onclick = () => { current = key; render(); };
+    sw.appendChild(btn);
+  });
+}
+
+function renderGrid() {
+  const t = themes[current];
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  cards.forEach(card => {
+    const tc = typeColors[card.type];
+    const el = document.createElement("div");
+    el.className = "poke-card";
+    el.style.cssText = `background: ${t.surface}; border-color: ${t.border}; color: ${t.text};`;
+
+    const linksHtml = card.links.map(l => `
+      <a class="link-btn" style="color:${t.text}; border-color:${t.btnBorder};">
+        <i class="ti ${l.icon} link-icon" aria-hidden="true" style="color:${t.accent}"></i>
+        <span class="link-label">${l.label}</span>
+        <span class="link-arrow">→</span>
+      </a>
+    `).join("");
+
+    el.innerHTML = `
+      <div class="card-corner-shine" style="background:${t.border}"></div>
+      <div class="card-header">
+        <div class="card-avatar" style="border-color:${tc}; background:${t.bg}; font-size:22px">${card.emoji}</div>
+        <div>
+          <div class="card-name" style="color:${t.text}">${card.name}</div>
+          <div class="card-handle" style="color:${t.muted}">${card.handle}</div>
+          <span class="card-badge" style="background:${t.badge}20; color:${t.badge}; border:1px solid ${t.badge}40">${card.type}</span>
+        </div>
+      </div>
+      <div class="hp-bar-wrap">
+        <span class="hp-label" style="color:${t.muted}">HP</span>
+        <div class="hp-track">
+          <div class="hp-fill" style="width:${card.hp}%; background:${t.hpColor}"></div>
+        </div>
+        <span class="hp-val" style="color:${t.muted}">${card.hp}</span>
+      </div>
+      <div class="card-divider" style="background:${t.border}"></div>
+      <div class="card-bio" style="color:${t.muted}">${card.bio}</div>
+      <div class="card-links">${linksHtml}</div>
+    `;
+    grid.appendChild(el);
+  });
+
+  document.querySelector(".page").style.background = "transparent";
+}
+
+function render() {
+  renderSwitcher();
+  renderGrid();
+}
+
+render();
+</script>
