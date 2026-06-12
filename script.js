@@ -162,8 +162,7 @@ const animationsList = [
 ];
 
 function initSwitchers() {
-  const themeSelect = document.getElementById('theme-select');
-  const animSelect = document.getElementById('anim-select');
+  console.log("initSwitchers initialized successfully");
   const themeLink = document.getElementById('theme-stylesheet');
   const bentoGrid = document.getElementById('bento-grid');
   const settingsToggle = document.getElementById('settings-toggle');
@@ -171,46 +170,127 @@ function initSwitchers() {
 
   // Toggle Settings Pill
   settingsToggle.addEventListener('click', () => {
-    settingsPill.classList.toggle('expanded');
+    const isExpanded = settingsPill.classList.toggle('expanded');
+    console.log("Settings toggled. expanded:", isExpanded);
+    if (!isExpanded) {
+      closeAllDropdowns();
+    }
   });
 
-  // Populate Themes
-  themesList.forEach(t => {
-    const opt = document.createElement('option');
-    opt.value = t;
-    opt.textContent = t.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-    themeSelect.appendChild(opt);
-  });
+  function closeAllDropdowns() {
+    console.log("Closing all dropdowns");
+    document.querySelectorAll('.custom-select.active').forEach(select => {
+      select.classList.remove('active');
+      select.querySelector('.custom-select-trigger').setAttribute('aria-expanded', 'false');
+    });
+  }
 
-  // Populate Animations
-  animationsList.forEach(a => {
-    const opt = document.createElement('option');
-    opt.value = a.val;
-    opt.textContent = a.name;
-    animSelect.appendChild(opt);
-  });
+  // Helper to format theme name display
+  function formatThemeName(t) {
+    return t.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  }
+
+  // Helper to set up custom dropdown
+  function setupCustomDropdown(selectId, triggerId, containerId, items, savedVal, onSelect) {
+    console.log("Setting up custom dropdown:", selectId);
+    const selectEl = document.getElementById(selectId);
+    const triggerEl = document.getElementById(triggerId);
+    const containerEl = document.getElementById(containerId);
+    const labelSpan = triggerEl.querySelector('.selected-value');
+
+    // Toggle dropdown active state
+    triggerEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isActive = selectEl.classList.contains('active');
+      console.log(`Trigger ${triggerId} clicked. Current isActive:`, isActive);
+      
+      // Close other dropdowns first
+      closeAllDropdowns();
+
+      if (!isActive) {
+        selectEl.classList.add('active');
+        triggerEl.setAttribute('aria-expanded', 'true');
+        console.log(`Added active class to ${selectId}`);
+      } else {
+        console.log(`Dropdown ${selectId} was active, now closed`);
+      }
+    });
+
+    // Populate items
+    items.forEach(item => {
+      const val = typeof item === 'string' ? item : item.val;
+      const text = typeof item === 'string' ? formatThemeName(item) : item.name;
+
+      const opt = document.createElement('div');
+      opt.className = 'custom-option';
+      opt.setAttribute('role', 'option');
+      opt.textContent = text;
+      opt.dataset.value = val;
+
+      if (val === savedVal) {
+        opt.classList.add('selected');
+        labelSpan.textContent = text;
+      }
+
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        // Update selection states
+        containerEl.querySelectorAll('.custom-option').forEach(el => el.classList.remove('selected'));
+        opt.classList.add('selected');
+        labelSpan.textContent = text;
+        
+        // Close dropdown
+        selectEl.classList.remove('active');
+        triggerEl.setAttribute('aria-expanded', 'false');
+
+        // Fire select callback
+        onSelect(val);
+      });
+
+      containerEl.appendChild(opt);
+    });
+  }
 
   // Load Preferences
   const savedTheme = localStorage.getItem('linktree-theme') || 'dracula';
   const savedAnim = localStorage.getItem('linktree-anim') || 'anim-float';
 
-  themeSelect.value = savedTheme;
+  // Apply initial preferences
   themeLink.href = 'themes/' + savedTheme + '.css';
-  
-  animSelect.value = savedAnim;
   bentoGrid.className = 'bento-grid ' + savedAnim;
 
-  // Event Listeners
-  themeSelect.addEventListener('change', (e) => {
-    const val = e.target.value;
-    themeLink.href = 'themes/' + val + '.css';
-    localStorage.setItem('linktree-theme', val);
-  });
+  // Set up theme custom selector
+  setupCustomDropdown(
+    'theme-select-custom',
+    'theme-trigger',
+    'theme-options',
+    themesList,
+    savedTheme,
+    (val) => {
+      themeLink.href = 'themes/' + val + '.css';
+      localStorage.setItem('linktree-theme', val);
+    }
+  );
 
-  animSelect.addEventListener('change', (e) => {
-    const val = e.target.value;
-    bentoGrid.className = 'bento-grid ' + val;
-    localStorage.setItem('linktree-anim', val);
+  // Set up animation custom selector
+  setupCustomDropdown(
+    'anim-select-custom',
+    'anim-trigger',
+    'anim-options',
+    animationsList,
+    savedAnim,
+    (val) => {
+      bentoGrid.className = 'bento-grid ' + val;
+      localStorage.setItem('linktree-anim', val);
+    }
+  );
+
+  // Close dropdowns on click outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.custom-select')) {
+      closeAllDropdowns();
+    }
   });
 }
 
