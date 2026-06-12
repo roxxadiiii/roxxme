@@ -40,7 +40,7 @@ body {
   left: -10%;
   width: 500px;
   height: 500px;
-  background: #ff007f;
+  background: var(--blob-1);
   animation-delay: 0s;
 }
 
@@ -49,7 +49,7 @@ body {
   right: -10%;
   width: 600px;
   height: 600px;
-  background: #00f2fe;
+  background: var(--blob-2);
   animation-delay: -5s;
 }
 
@@ -58,7 +58,7 @@ body {
   left: 30%;
   width: 500px;
   height: 500px;
-  background: #7b2cbf;
+  background: var(--blob-3);
   animation-delay: -10s;
 }
 
