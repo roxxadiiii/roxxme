@@ -32,7 +32,7 @@ body {
   filter: blur(100px);
   border-radius: 50%;
   animation: move 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0.65;
+  opacity: 0.45;
 }
 
 .blob-1 {
@@ -60,6 +60,33 @@ body {
   height: 500px;
   background: var(--blob-3);
   animation-delay: -10s;
+}
+
+.blob-4 {
+  top: 15%;
+  right: 10%;
+  width: 450px;
+  height: 450px;
+  background: var(--blob-4);
+  animation-delay: -3s;
+}
+
+.blob-5 {
+  bottom: 25%;
+  left: 5%;
+  width: 500px;
+  height: 500px;
+  background: var(--blob-5);
+  animation-delay: -7s;
+}
+
+.blob-6 {
+  bottom: 10%;
+  right: 35%;
+  width: 480px;
+  height: 480px;
+  background: var(--blob-6);
+  animation-delay: -13s;
 }
 
 @keyframes move {
