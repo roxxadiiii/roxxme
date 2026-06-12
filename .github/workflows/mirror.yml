@@ -19,7 +19,7 @@ jobs:
       # 2. Push to Codeberg
       - name: Push to Codeberg
         run: |
-          git remote add codeberg https://$CODEBERG_TOKEN@codeberg.org/roxxadiiii/roxxadiiii.git
+          git remote add codeberg https://$CODEBERG_TOKEN@codeberg.org/roxxadiiii/roxxme.git
           git push --mirror codeberg || echo "Codeberg push failed"
         env:
           CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
@@ -27,7 +27,7 @@ jobs:
       # 3. Push to GitLab
       - name: Push to GitLab
         run: |
-          git remote add gitlab https://oauth2:$GITLAB_TOKEN@gitlab.com/USERNAME/REPO.git
+          git remote add gitlab https://oauth2:$GITLAB_TOKEN@gitlab.com/roxxadiiii/roxxme.git
           git push --mirror gitlab || echo "GitLab push failed"
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
@@ -45,5 +45,5 @@ jobs:
       # 5. Push to SourceHut
       - name: Push to SourceHut
         run: |
-          git remote add sourcehut git@git.sr.ht:~roxxadiiii/roxxadiiii
+          git remote add sourcehut git@git.sr.ht:~roxxadiiii/roxxme
           git push --mirror sourcehut || echo "SourceHut push failed"
